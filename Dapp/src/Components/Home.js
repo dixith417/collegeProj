@@ -5,6 +5,7 @@ import { Table, Container, Button } from "react-bootstrap";
 const Home = (props) => {
   const [promptList, changePromptList] = useState([]);
 
+  // Getting the list of polls
   useEffect(() => {
     const getPrompts = async () => {
       changePromptList(await window.contract.getAllPrompts());

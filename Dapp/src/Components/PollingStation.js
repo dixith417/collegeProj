@@ -70,11 +70,11 @@ const PollingStation = (props) => {
   };
 
   return (
-    <Container>
+    <Container style={{minHeight:'105vh'}}>
       <Row>
         <Col className='jutify-content-center d-flex'>
           <Container>
-            <Row style={{ marginTop: "5vh", backgroundColor: "#c4c4c4" }}>
+            <Row style={{ marginTop: "5vh", backgroundColor: "#f6f8ff", borderRadius: '0.4rem'}}>
               <div
                 style={{
                   display: "flex",
@@ -102,7 +102,8 @@ const PollingStation = (props) => {
                     justifyContent: "center",
                     fontSize: "8vw",
                     padding: "10px",
-                    backgroundColor: "#c4c4c4",
+                    backgroundColor: "#f6f8ff",
+                    borderRadius: '0.4rem'
                   }}
                 >
                   {candidate1Votes}
@@ -124,11 +125,13 @@ const PollingStation = (props) => {
             style={{
               display: "flex",
               justifyContent: "center",
-              backgroundColor: "#c4c4c4",
+              backgroundColor: "#f6f8ff",
               height: "20vh",
               alignItems: "center",
               padding: "2vw",
               textAlign: "center",
+              fontWeight: '600',
+              fontSize: '1.25rem',
             }}
           >
             {prompt}
@@ -136,7 +139,7 @@ const PollingStation = (props) => {
         </Col>
         <Col className='jutify-content-center d-flex'>
           <Container>
-            <Row style={{ marginTop: "5vh", backgroundColor: "#c4c4c4" }}>
+            <Row style={{ marginTop: "5vh", backgroundColor: "#f6f8ff", borderRadius: '0.4rem' }}>
               <div
                 style={{
                   display: "flex",
@@ -164,7 +167,8 @@ const PollingStation = (props) => {
                     justifyContent: "center",
                     fontSize: "8vw",
                     padding: "10px",
-                    backgroundColor: "#c4c4c4",
+                    backgroundColor: "#f6f8ff",
+                    borderRadius: '0.4rem'
                   }}
                 >
                   {candidate2Votes}

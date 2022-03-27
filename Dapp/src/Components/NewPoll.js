@@ -32,7 +32,7 @@ const NewPoll = (props) => {
 
     await window.contract.addToPromptArray({ prompt: promptRef.current.value });
 
-    alert("head back to home page");
+    alert("Poll created successfully, go to home!");
   };
 
   return (
@@ -81,7 +81,7 @@ const NewPoll = (props) => {
         onClick={sendToBlockChain}
         variant='primary'
       >
-        Submit
+        Create Poll
       </Button>
     </Container>
   );
