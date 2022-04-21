@@ -5,6 +5,11 @@ import { Table, Container, Button } from "react-bootstrap";
 const Home = (props) => {
   const [promptList, changePromptList] = useState([]);
 
+  const deleteAllPolls = async () => {
+    await window.contract.clearPromptArray();
+    changePromptList([]);
+  };
+
   // Getting the list of polls
   useEffect(() => {
     const getPrompts = async () => {
@@ -22,17 +27,20 @@ const Home = (props) => {
             <th>#</th>
             <th>List of Polls</th>
             <th>Go to Poll</th>
+            <th>
+              <Button onClick={deleteAllPolls}>Delete All Polls</Button>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {promptList.map((el, index) => {
+          {promptList.map((item, index) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{el}</td>
-                <td>
+                <td>{item}</td>
+                <td colSpan={2}>
                   {" "}
-                  <Button onClick={() => props.changeCandidates(el)}>
+                  <Button onClick={() => props.changeCandidates(item)}>
                     Go to Poll
                   </Button>
                 </td>

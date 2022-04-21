@@ -20,22 +20,24 @@ export default function App() {
     let namePair = await window.contract.getCandidatePair({ prompt: prompt });
     localStorage.setItem("Candidate1", namePair[0]);
     localStorage.setItem("Candidate2", namePair[1]);
+    localStorage.setItem("Candidate3", namePair[2]);
+    localStorage.setItem("Candidate4", namePair[3]);
     localStorage.setItem("prompt", prompt);
     window.location.replace(window.location.href + "PollingStation");
   };
 
   return (
     <Router>
-      <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href='/'>
+          <Navbar.Brand href="/">
             <h1>Home</h1>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-          <Navbar.Collapse id='responsive-navbar-nav'>
-            <Nav className='mx-auto'></Nav>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mx-auto"></Nav>
             <Nav>
-              <Nav.Link href='/NewPoll'>New Poll</Nav.Link>
+              <Nav.Link href="/NewPoll">New Poll</Nav.Link>
               <Nav.Link onClick={window.accountId === "" ? login : logout}>
                 {window.accountId === "" ? "Login" : window.accountId}
               </Nav.Link>
@@ -44,13 +46,13 @@ export default function App() {
         </Container>
       </Navbar>
       <Switch>
-        <Route exact path='/'>
+        <Route exact path="/">
           <Home changeCandidates={changeCandidatesFunction} />
         </Route>
-        <Route exact path='/PollingStation'>
+        <Route exact path="/PollingStation">
           <PollingStation />
         </Route>
-        <Route exact path='/NewPoll'>
+        <Route exact path="/NewPoll">
           <NewPoll />
         </Route>
       </Switch>
