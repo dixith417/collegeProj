@@ -1,9 +1,9 @@
 import { logging, PersistentMap, storage } from "near-sdk-as";
 
 const CandidateURL = new PersistentMap<string, string>("CandidateURL");
-const CandidatePair = new PersistentMap<string, string[]>("Candidate Pair");
+const Candidates = new PersistentMap<string, string[]>("Candidates");
 const PromptArray = new PersistentMap<string, string[]>("array of prompts");
-const VoteArray = new PersistentMap<string, i32[]>("stores votes ");
+const VoteArray = new PersistentMap<string, i32[]>("stores votes");
 const userParticipation = new PersistentMap<string, string[]>(
   "user Participation Record"
 );
@@ -53,8 +53,8 @@ export function getVotes(prompt: string): i32[] {
 }
 
 export function getCandidatePair(prompt: string): string[] {
-  if (CandidatePair.contains(prompt)) {
-    return CandidatePair.getSome(prompt);
+  if (Candidates.contains(prompt)) {
+    return Candidates.getSome(prompt);
   } else {
     logging.log("prompt not found");
     return [];
@@ -80,7 +80,7 @@ export function addCandidatePair(
   name3: string,
   name4: string
 ): void {
-  CandidatePair.set(prompt, [name1, name2, name3, name4]);
+  Candidates.set(prompt, [name1, name2, name3, name4]);
   logging.log(
     "Added candidates:" + name1 + " " + name2 + " " + name3 + " " + name4
   );
@@ -100,8 +100,13 @@ export function addToPromptArray(prompt: string): void {
 }
 
 export function clearPromptArray(): void {
-  logging.log("clearing prompt array");
+  logging.log("clearing Poll data...");
   PromptArray.delete("AllArrays");
+  Candidates.delete("Candidates");
+  VoteArray.delete("stores votes");
+  userParticipation.delete("user Participation Record");
+  CandidateURL.delete("CandidateURL");
+  logging.log("All Data Cleared!");
 }
 
 export function addVote(prompt: string, index: i32): void {

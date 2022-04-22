@@ -91,7 +91,7 @@ const PollingStation = (props) => {
   };
 
   return (
-    <Container style={{ minHeight: "200vh" }}>
+    <Container style={{ minHeight: "220vh" }}>
       <Row style={{ marginTop: "5vh" }}>
         <Col className="justify-content-center d-flex align-items-center">
           <div

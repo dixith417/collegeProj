@@ -17,6 +17,28 @@ const NewPoll = (props) => {
   const [disableButton, changeDisable] = useState(false);
 
   const sendToBlockChain = async () => {
+    if (
+      candidateName1.current.value === "" ||
+      candidateName1.current.value === null ||
+      candidateName2.current.value === "" ||
+      candidateName2.current.value === null ||
+      candidateName3.current.value === "" ||
+      candidateName3.current.value === null ||
+      candidateName4.current.value === "" ||
+      candidateName4.current.value === null ||
+      candidateName1URL.current.value === "" ||
+      candidateName1URL.current.value === null ||
+      candidateName2URL.current.value === "" ||
+      candidateName2URL.current.value === null ||
+      candidateName3URL.current.value === "" ||
+      candidateName3URL.current.value === null ||
+      candidateName4URL.current.value === "" ||
+      candidateName4URL.current.value === null
+    ) {
+      alert("Probably the form feilds are empty ! Please check again.");
+      return;
+    }
+
     changeDisable(true);
     await window.contract.addUrl({
       name: candidateName1.current.value,
@@ -52,79 +74,92 @@ const NewPoll = (props) => {
   };
 
   return (
-    <Container style={{ marginTop: "10px" }}>
+    <Container style={{ marginTop: "2rem", marginBottom: "2rem" }}>
       <Form>
         <Form.Group className="mb-3">
-          <Form.Label>Candidiate 1 Name</Form.Label>
+          <Form.Label>Candidiate 1 Name / Party Name / Org. Name</Form.Label>
           <Form.Control
+            required
             ref={candidateName1}
-            placeholder="Enter Candidate Name"
+            placeholder="Enter Candidate Name / Party Name / Org. Name"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidate 1 Image URL</Form.Label>
+          <Form.Label>Candidate 1 Symbol URL</Form.Label>
           <Form.Control
+            required
             ref={candidateName1URL}
-            placeholder="enter Image URL"
+            placeholder="Enter URL"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidiate 2 Name</Form.Label>
+          <Form.Label>Candidiate 2 Name / Party Name / Org. Name</Form.Label>
           <Form.Control
+            required
             ref={candidateName2}
-            placeholder="Enter Candidate Name"
+            placeholder="Enter Candidate Name / Party Name / Org. Name"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidate 2 Image URL</Form.Label>
+          <Form.Label>Candidate 2 Symbol URL</Form.Label>
           <Form.Control
+            required
             ref={candidateName2URL}
-            placeholder="enter Image URL"
+            placeholder="Enter URL"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidiate 3 Name</Form.Label>
+          <Form.Label>Candidiate 3 Name / Party Name / Org. Name</Form.Label>
           <Form.Control
+            required
             ref={candidateName3}
-            placeholder="Enter Candidate Name"
+            placeholder="Enter Candidate Name / Party Name / Org. Name"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidate 3 Image URL</Form.Label>
+          <Form.Label>Candidate 3 Symbol URL</Form.Label>
           <Form.Control
+            required
             ref={candidateName3URL}
-            placeholder="enter Image URL"
+            placeholder="Enter URL"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidiate 3 Name</Form.Label>
+          <Form.Label>Candidiate 4 Name / Party Name / Org. Name</Form.Label>
           <Form.Control
+            required
             ref={candidateName4}
-            placeholder="Enter Candidate Name"
+            placeholder="Enter Candidate Name / Party Name / Org. Name"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Candidate 3 Image URL</Form.Label>
+          <Form.Label>Candidate 4 Symbol URL</Form.Label>
           <Form.Control
+            required
             ref={candidateName4URL}
-            placeholder="enter Image URL"
+            placeholder="Enter URL"
           ></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Prompt</Form.Label>
-          <Form.Control ref={promptRef} placeholder="Add Prompt"></Form.Control>
+          <Form.Label>Prompt / Purpose of Poll</Form.Label>
+          <Form.Control
+            required
+            ref={promptRef}
+            placeholder="Add Purpose / Goal"
+          ></Form.Control>
         </Form.Group>
       </Form>
 
       <Button
+        type="submit"
         disabled={disableButton}
         onClick={sendToBlockChain}
         variant="primary"
