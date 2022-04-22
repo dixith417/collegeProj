@@ -65,6 +65,13 @@ const PollingStation = (props) => {
       changeButtonStatus(didUserVote);
     };
 
+    const checkLogin = () => {
+      if (localStorage.getItem("undefined_wallet_auth_key") === null) {
+        window.location.replace("http://localhost:1234/");
+      }
+    };
+
+    checkLogin();
     getInfo();
   }, []);
 

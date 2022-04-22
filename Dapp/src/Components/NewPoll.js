@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
 const NewPoll = (props) => {
@@ -72,6 +72,15 @@ const NewPoll = (props) => {
 
     alert("Poll created successfully, go to home!");
   };
+
+  useEffect(() => {
+    const checkLogin = () => {
+      if (localStorage.getItem("undefined_wallet_auth_key") === null) {
+        window.location.replace("http://localhost:1234/");
+      }
+    };
+    checkLogin();
+  });
 
   return (
     <Container style={{ marginTop: "2rem", marginBottom: "2rem" }}>
