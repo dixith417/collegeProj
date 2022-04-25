@@ -4,7 +4,7 @@ import { login, logout } from "./utils";
 import "./global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Navbar, Nav } from "react-bootstrap";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // components
 import Home from "./Components/Home";
@@ -15,9 +15,9 @@ import getConfig from "./config";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
-  const changeCandidatesFunction = async (prompt) => {
+  const setCandidatesFunction = async (prompt) => {
     console.log(prompt);
-    let namePair = await window.contract.getCandidatePair({ prompt: prompt });
+    let namePair = await window.contract.getCandidateList({ prompt: prompt });
     localStorage.setItem("Candidate1", namePair[0]);
     localStorage.setItem("Candidate2", namePair[1]);
     localStorage.setItem("Candidate3", namePair[2]);
@@ -47,7 +47,7 @@ export default function App() {
       </Navbar>
       <Switch>
         <Route exact path="/">
-          <Home changeCandidates={changeCandidatesFunction} />
+          <Home changeCandidates={setCandidatesFunction} />
         </Route>
         <Route exact path="/PollingStation">
           <PollingStation />

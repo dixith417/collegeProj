@@ -3,56 +3,56 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import LoadingCircles from "../assets/loadingcircles.svg";
 
 const PollingStation = (props) => {
-  const [candidate1URL, changeCandidate1Url] = useState(LoadingCircles);
-  const [candidate2URL, changeCandidate2Url] = useState(LoadingCircles);
-  const [candidate3URL, changeCandidate3Url] = useState(LoadingCircles);
-  const [candidate4URL, changeCandidate4Url] = useState(LoadingCircles);
+  const [candidate1URL, setCandidate1Url] = useState(LoadingCircles);
+  const [candidate2URL, setCandidate2Url] = useState(LoadingCircles);
+  const [candidate3URL, setCandidate3Url] = useState(LoadingCircles);
+  const [candidate4URL, setCandidate4Url] = useState(LoadingCircles);
 
-  const [showresults, changeResultsDisplay] = useState(false);
-  const [buttonStatus, changeButtonStatus] = useState(false);
+  const [showresults, setResultsDisplay] = useState(false);
+  const [buttonStatus, setButtonStatus] = useState(false);
 
-  const [candidate1Votes, changeVote1] = useState("--");
-  const [candidate2Votes, changeVote2] = useState("--");
-  const [candidate3Votes, changeVote3] = useState("--");
-  const [candidate4Votes, changeVote4] = useState("--");
+  const [candidate1Votes, setVote1] = useState("--");
+  const [candidate2Votes, setVote2] = useState("--");
+  const [candidate3Votes, setVote3] = useState("--");
+  const [candidate4Votes, setVote4] = useState("--");
 
-  const [prompt, changePrompt] = useState("--");
+  const [prompt, setPrompt] = useState("--");
 
   useEffect(() => {
     const getInfo = async () => {
-      // vote count stuff
+      // setting vote count
       let voteCount = await window.contract.getVotes({
         prompt: localStorage.getItem("prompt"),
       });
-      changeVote1(voteCount[0]);
-      changeVote2(voteCount[1]);
-      changeVote3(voteCount[2]);
-      changeVote4(voteCount[3]);
+      setVote1(voteCount[0]);
+      setVote2(voteCount[1]);
+      setVote3(voteCount[2]);
+      setVote4(voteCount[3]);
 
-      // image stuff
+      // setting images
 
-      changeCandidate1Url(
+      setCandidate1Url(
         await window.contract.getUrl({
           name: localStorage.getItem("Candidate1"),
         })
       );
-      changeCandidate2Url(
+      setCandidate2Url(
         await window.contract.getUrl({
           name: localStorage.getItem("Candidate2"),
         })
       );
-      changeCandidate3Url(
+      setCandidate3Url(
         await window.contract.getUrl({
           name: localStorage.getItem("Candidate3"),
         })
       );
-      changeCandidate4Url(
+      setCandidate4Url(
         await window.contract.getUrl({
           name: localStorage.getItem("Candidate4"),
         })
       );
 
-      changePrompt(localStorage.getItem("prompt"));
+      setPrompt(localStorage.getItem("prompt"));
 
       // vote checking stuff
 
@@ -61,8 +61,8 @@ const PollingStation = (props) => {
         user: window.accountId,
       });
 
-      changeResultsDisplay(didUserVote);
-      changeButtonStatus(didUserVote);
+      setResultsDisplay(didUserVote);
+      setButtonStatus(didUserVote);
     };
 
     const checkLogin = () => {
@@ -76,7 +76,7 @@ const PollingStation = (props) => {
   }, []);
 
   const addVote = async (index) => {
-    changeButtonStatus(true);
+    setButtonStatus(true);
     await window.contract.addVote({
       prompt: localStorage.getItem("prompt"),
       index: index,
@@ -90,15 +90,16 @@ const PollingStation = (props) => {
     let voteCount = await window.contract.getVotes({
       prompt: localStorage.getItem("prompt"),
     });
-    changeVote1(voteCount[0]);
-    changeVote2(voteCount[1]);
-    changeVote3(voteCount[2]);
-    changeVote4(voteCount[3]);
-    changeResultsDisplay(true);
+    setVote1(voteCount[0]);
+    setVote2(voteCount[1]);
+    setVote3(voteCount[2]);
+    setVote4(voteCount[3]);
+    setResultsDisplay(true);
   };
 
   return (
     <Container style={{ minHeight: "220vh" }}>
+      {/* @ 1st row */}
       <Row style={{ marginTop: "5vh" }}>
         <Col className="justify-content-center d-flex align-items-center">
           <div
@@ -118,8 +119,9 @@ const PollingStation = (props) => {
           </div>
         </Col>
       </Row>
+      {/* @ 1st row ends */}
 
-      {/* @ 1st row */}
+      {/* @ 2st row */}
       <Row>
         <Col className="jutify-content-center d-flex">
           <Container>
@@ -231,9 +233,9 @@ const PollingStation = (props) => {
           </Container>
         </Col>
       </Row>
-      {/* @ 1st row ends */}
+      {/* @ 2st row ends */}
 
-      {/* @ 2nd row */}
+      {/* @ 3nd row */}
       <Row>
         <Col className="jutify-content-center d-flex">
           <Container>
@@ -345,7 +347,7 @@ const PollingStation = (props) => {
           </Container>
         </Col>
       </Row>
-      {/* @2nd row ends */}
+      {/* @3nd row ends */}
     </Container>
   );
 };

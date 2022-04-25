@@ -14,7 +14,7 @@ const NewPoll = (props) => {
 
   const promptRef = useRef();
 
-  const [disableButton, changeDisable] = useState(false);
+  const [disableButton, setDisableBtn] = useState(false);
 
   const sendToBlockChain = async () => {
     if (
@@ -39,7 +39,7 @@ const NewPoll = (props) => {
       return;
     }
 
-    changeDisable(true);
+    setDisableBtn(true);
     await window.contract.addUrl({
       name: candidateName1.current.value,
       url: candidateName1URL.current.value,
@@ -60,7 +60,7 @@ const NewPoll = (props) => {
       url: candidateName4URL.current.value,
     });
 
-    await window.contract.addCandidatePair({
+    await window.contract.setCandidateList({
       prompt: promptRef.current.value,
       name1: candidateName1.current.value,
       name2: candidateName2.current.value,

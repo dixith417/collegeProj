@@ -3,17 +3,29 @@ import React, { useEffect, useState } from "react";
 import { Table, Container, Button } from "react-bootstrap";
 
 const Home = (props) => {
-  const [promptList, changePromptList] = useState([]);
+  const [promptList, setPromptList] = useState([]);
 
   const deleteAllPolls = async () => {
+    if (!checkLogin()) {
+      alert("User not logged in, please login first!");
+      return;
+    }
     await window.contract.clearPromptArray();
-    changePromptList([]);
+    setPromptList([]);
+  };
+
+  const checkLogin = () => {
+    if (localStorage.getItem("undefined_wallet_auth_key") === null) {
+      // window.location.replace("http://localhost:1234/");
+      return false;
+    }
+    return true;
   };
 
   // Getting the list of polls
   useEffect(() => {
     const getPrompts = async () => {
-      changePromptList(await window.contract.getAllPrompts());
+      setPromptList(await window.contract.getAllPrompts());
       console.log(await window.contract.getAllPrompts());
     };
     getPrompts();
@@ -40,7 +52,15 @@ const Home = (props) => {
                 <td>{item}</td>
                 <td colSpan={2}>
                   {" "}
-                  <Button onClick={() => props.changeCandidates(item)}>
+                  <Button
+                    onClick={() => {
+                      if (!checkLogin()) {
+                        alert("User not logged in, please login first!");
+                        return;
+                      }
+                      props.changeCandidates(item);
+                    }}
+                  >
                     Go to Poll
                   </Button>
                 </td>

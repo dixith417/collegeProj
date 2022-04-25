@@ -1,4 +1,4 @@
-import { logging, PersistentMap, storage } from "near-sdk-as";
+import { logging, PersistentMap } from "near-sdk-as";
 
 const CandidateURL = new PersistentMap<string, string>("CandidateURL");
 const Candidates = new PersistentMap<string, string[]>("Candidates");
@@ -52,7 +52,7 @@ export function getVotes(prompt: string): i32[] {
   }
 }
 
-export function getCandidatePair(prompt: string): string[] {
+export function getCandidateList(prompt: string): string[] {
   if (Candidates.contains(prompt)) {
     return Candidates.getSome(prompt);
   } else {
@@ -73,7 +73,7 @@ export function addUrl(name: string, url: string): void {
   logging.log("added url for " + name);
 }
 
-export function addCandidatePair(
+export function setCandidateList(
   prompt: string,
   name1: string,
   name2: string,
