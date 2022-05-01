@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "name":"Jonnathan",
+    "image": "https://clipart.world/wp-content/uploads/2021/04/Little-Boy-clipart-1.png",
+    "featured": true,
+    "description":"About Jonnathan"
+  },
+  {
+    "id": 1,
+    "name":"Kenneth",
+    "image": "https://freedesignfile.com/upload/2018/03/Cartoon-kid-with-soccer-vectors-07.jpg",
+    "featured": false,
+    "description":"About Kenneth"
+  },
+  {
+    "id": 2,
+    "name":"Margaret",
+    "image": "https://media.baamboozle.com/uploads/images/276879/1624907139_16747.jpeg",
+    "featured": false,
+    "description":"About Margaret"
+  },
+  {
+    "id": 3,
+    "name":"Jeffrey",
+    "image": "https://www.pinclipart.com/picdir/big/148-1488212_royalty-free-boy-clip-art-clip-art-school.png",
+    "featured": false,
+    "description":"About Jeffrey"
+  }
+]

@@ -1,6 +1,8 @@
 import { Tab } from "bootstrap";
 import React, { useEffect, useState } from "react";
-import { Table, Container, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import { Table, Container, Button, Card } from "react-bootstrap";
+import Dashboard from "./Dashboard";
 
 const Home = (props) => {
   const [promptList, setPromptList] = useState([]);
@@ -32,15 +34,17 @@ const Home = (props) => {
   }, []);
 
   return (
+    <>
+    <Dashboard />
     <Container>
       <Table style={{ margin: "5vh" }} striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
-            <th>List of Polls</th>
+            <th>Poll Name</th>
             <th>Go to Poll</th>
             <th>
-              <Button onClick={deleteAllPolls}>Delete All Polls</Button>
+              <Button onClick={deleteAllPolls}>Delete Poll</Button>
             </th>
           </tr>
         </thead>
@@ -70,6 +74,7 @@ const Home = (props) => {
         </tbody>
       </Table>
     </Container>
+    </>
   );
 };
 

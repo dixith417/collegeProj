@@ -7,9 +7,14 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // components
+import Detail from "./Components/Details";
 import Home from "./Components/Home";
+import Contact from "./Components/Contact";
+import About from "./Components/About";
 import NewPoll from "./Components/NewPoll";
 import PollingStation from "./Components/PollingStation";
+import Footer from "./Components/Footer";
+import CandInfo from "./Data/CandidateInfo.json";
 
 import getConfig from "./config";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
@@ -26,17 +31,27 @@ export default function App() {
     window.location.replace(window.location.href + "PollingStation");
   };
 
+  const CandWithId = ({match}) => {
+    return(
+        <Detail item={CandInfo.filter((item) => item.id === parseInt(match.params.itemId,10))[0]}
+        />
+    );
+  };
+
   return (
+    <>
     <Router>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" style={{background: "#3AAFA9"}} variant="dark">
         <Container>
           <Navbar.Brand href="/">
-            <h1>Home</h1>
+            <h1>Coalesce Forum</h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mx-auto"></Nav>
             <Nav>
+              <Nav.Link href="/Contact">Contact Us</Nav.Link>
+              <Nav.Link href="/About">About Us</Nav.Link>
               <Nav.Link href="/NewPoll">New Poll</Nav.Link>
               <Nav.Link onClick={window.accountId === "" ? login : logout}>
                 {window.accountId === "" ? "Login" : window.accountId}
@@ -49,6 +64,13 @@ export default function App() {
         <Route exact path="/">
           <Home changeCandidates={setCandidatesFunction} />
         </Route>
+        <Route path="/candidate/:itemId" component={CandWithId} />
+        <Route exact path="/Contact">
+          <Contact />
+        </Route>
+        <Route exact path="/About">
+          <About />
+        </Route>
         <Route exact path="/PollingStation">
           <PollingStation />
         </Route>
@@ -56,6 +78,8 @@ export default function App() {
           <NewPoll />
         </Route>
       </Switch>
+    <Footer />
     </Router>
+    </>
   );
 }
