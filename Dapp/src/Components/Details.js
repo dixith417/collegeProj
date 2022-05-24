@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 // import { Link } from "react-router-dom";
-import { useState } from "react";
-import Comments from "../Data/Comments.json";
 
 const required = (val) => val && val.length;
 const maxLen = (len) => (val) => !val || val.length <= len;
@@ -11,21 +9,33 @@ const minLen = (len) => (val) => val && val.length >= len;
 const CommentForm = (props) => {
   const [author, setAuthor] = useState("");
   const [statement, setStatement] = useState("");
+  const [newComment, setNewComment] =  useState({});
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     console.log("Posted the comment !");
     const comment = {
-      id: Math.random(),
-      itemId: props.itemId,
+      candidate_id: props.itemId,
+      rating: "4.0",
       comment: statement,
-      author: author,
-      date: new Date(),
+      author: author
     };
+    setNewComment(comment);
     props.addComment(comment);
     setAuthor("");
     setStatement("");
   };
+
+  useEffect(() => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newComment)
+    };
+    fetch('http://localhost:8080/api/discuss/comment/addComment', requestOptions)
+        .then(response => response.json())
+        .then(data => setPostId(data.id));
+  }, [newComment]);
 
   return (
     <>
@@ -99,6 +109,8 @@ const RenderCandInfo = ({ item }) => {
 const RenderComments = ({ comments, itemId }) => {
   const [displayComments, setDisplayComments] = useState(comments);
 
+  console.log(comments);
+
   const addComment = (comment) => {
     setDisplayComments((displayComments) => [...displayComments, comment]);
   };
@@ -129,6 +141,27 @@ const RenderComments = ({ comments, itemId }) => {
 };
 
 const Detail = (props) => {
+  // const [comments, setComments] = useState([]);
+  // const [loaded, setLoaded] = useState(false);
+  // const [filteredComments, setFilteredComments] = useState([]);
+
+  // const getAllComments = () => {
+  //   fetch("http://localhost:8080/api/discuss/comment/getAllComments")
+  //   .then(response => response.json())
+  //   .then(json => {
+  //     setComments(json);
+  //     console.log(json);
+  //     setFilteredComments(json.filter(
+  //       (comment) => comment.candidate_id == props.item.id
+  //     ));
+  //     setLoaded(true);
+  //   })
+  // };
+
+  // useEffect(() => {
+  //   getAllComments();
+  // }, []);
+
   if (props.item != null) {
     return (
       <div className="container">
@@ -154,9 +187,7 @@ const Detail = (props) => {
               </ul>
             </div>
             <RenderComments
-              comments={Comments.filter(
-                (comment) => comment.itemId == props.item.id
-              )}
+              comments={props.item.comment_list}
               itemId={props.item.id}
             />
           </div>

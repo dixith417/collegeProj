@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { login, logout } from "./utils";
 import "./global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +20,22 @@ import getConfig from "./config";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
+  const [items, setItems] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  const getCandidates = () => {
+    fetch("http://localhost:8080/api/discuss/candidate/getAllCandidates")
+      .then(response => response.json())
+      .then(json => {
+          setItems(json);
+          setLoaded(true);
+      })
+  };
+
+  useEffect(() => {
+      getCandidates();
+  }, []);
+
   const setCandidatesFunction = async (prompt) => {
     console.log(prompt);
     let namePair = await window.contract.getCandidateList({ prompt: prompt });
@@ -33,7 +49,7 @@ export default function App() {
 
   const CandWithId = ({match}) => {
     return(
-        <Detail item={CandInfo.filter((item) => item.id === parseInt(match.params.itemId,10))[0]}
+        <Detail item={items.filter((item) => item.id === parseInt(match.params.itemId,10))[0]}
         />
     );
   };
