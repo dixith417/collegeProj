@@ -14,21 +14,18 @@ import About from "./Components/About";
 import NewPoll from "./Components/NewPoll";
 import PollingStation from "./Components/PollingStation";
 import Footer from "./Components/Footer";
-import CandInfo from "./Data/CandidateInfo.json";
 
 import getConfig from "./config";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
   const [items, setItems] = useState([]);
-  const [loaded, setLoaded] = useState(false);
 
   const getCandidates = () => {
     fetch("http://localhost:8080/api/discuss/candidate/getAllCandidates")
       .then(response => response.json())
       .then(json => {
           setItems(json);
-          setLoaded(true);
       })
   };
 

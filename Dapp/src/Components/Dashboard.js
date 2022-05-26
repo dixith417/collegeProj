@@ -15,14 +15,12 @@ function RenderDashboardItem({item, onClick}){
 
 const Dashboard = () => {
     const [items, setItems] = useState([]);
-    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/discuss/candidate/getAllCandidates")
         .then(response => response.json())
         .then(json => {
             setItems(json);
-            setLoaded(true);
         })
     }, []);
 

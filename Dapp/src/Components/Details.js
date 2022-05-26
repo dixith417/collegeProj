@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
-// import { Link } from "react-router-dom";
 
 const required = (val) => val && val.length;
 const maxLen = (len) => (val) => !val || val.length <= len;
@@ -9,7 +8,6 @@ const minLen = (len) => (val) => val && val.length >= len;
 const CommentForm = (props) => {
   const [author, setAuthor] = useState("");
   const [statement, setStatement] = useState("");
-  const [newComment, setNewComment] =  useState({});
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -18,24 +16,32 @@ const CommentForm = (props) => {
       candidate_id: props.itemId,
       rating: "4.0",
       comment: statement,
-      author: author
+      author: author,
     };
     setNewComment(comment);
+    postComment();
     props.addComment(comment);
     setAuthor("");
     setStatement("");
   };
 
-  useEffect(() => {
+  const postComment = () => {
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newComment)
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        candidate_id: props.itemId,
+        rating: "4.0",
+        comment: statement,
+        author: author,
+      })
     };
+  
     fetch('http://localhost:8080/api/discuss/comment/addComment', requestOptions)
-        .then(response => response.json())
-        .then(data => setPostId(data.id));
-  }, [newComment]);
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+  };
 
   return (
     <>
@@ -109,8 +115,6 @@ const RenderCandInfo = ({ item }) => {
 const RenderComments = ({ comments, itemId }) => {
   const [displayComments, setDisplayComments] = useState(comments);
 
-  console.log(comments);
-
   const addComment = (comment) => {
     setDisplayComments((displayComments) => [...displayComments, comment]);
   };
@@ -121,11 +125,7 @@ const RenderComments = ({ comments, itemId }) => {
         <p>{comment.comment}</p>
         <p>
           --{comment.author},{" "}
-          {new Intl.DateTimeFormat("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "2-digit",
-          }).format(new Date(Date.parse(comment.date)))}
+          {comment.date}
         </p>
       </div>
     );
@@ -141,26 +141,6 @@ const RenderComments = ({ comments, itemId }) => {
 };
 
 const Detail = (props) => {
-  // const [comments, setComments] = useState([]);
-  // const [loaded, setLoaded] = useState(false);
-  // const [filteredComments, setFilteredComments] = useState([]);
-
-  // const getAllComments = () => {
-  //   fetch("http://localhost:8080/api/discuss/comment/getAllComments")
-  //   .then(response => response.json())
-  //   .then(json => {
-  //     setComments(json);
-  //     console.log(json);
-  //     setFilteredComments(json.filter(
-  //       (comment) => comment.candidate_id == props.item.id
-  //     ));
-  //     setLoaded(true);
-  //   })
-  // };
-
-  // useEffect(() => {
-  //   getAllComments();
-  // }, []);
 
   if (props.item != null) {
     return (

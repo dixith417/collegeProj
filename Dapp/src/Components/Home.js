@@ -1,7 +1,5 @@
-import { Tab } from "bootstrap";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Table, Container, Button, Card } from "react-bootstrap";
+import { Table, Container, Button } from "react-bootstrap";
 import Dashboard from "./Dashboard";
 
 const Home = (props) => {
@@ -18,7 +16,6 @@ const Home = (props) => {
 
   const checkLogin = () => {
     if (localStorage.getItem("undefined_wallet_auth_key") === null) {
-      // window.location.replace("http://localhost:1234/");
       return false;
     }
     return true;
