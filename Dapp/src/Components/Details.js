@@ -18,29 +18,33 @@ const CommentForm = (props) => {
       comment: statement,
       author: author,
     };
-    setNewComment(comment);
+    // setNewComment(comment);
     postComment();
     props.addComment(comment);
     setAuthor("");
     setStatement("");
+    location.reload();
   };
 
   const postComment = () => {
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         candidate_id: props.itemId,
         rating: "4.0",
         comment: statement,
         author: author,
-      })
+      }),
     };
-  
-    fetch('http://localhost:8080/api/discuss/comment/addComment', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+
+    fetch(
+      "http://localhost:8080/api/discuss/comment/addComment",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -124,8 +128,7 @@ const RenderComments = ({ comments, itemId }) => {
       <div key={comment.id}>
         <p>{comment.comment}</p>
         <p>
-          --{comment.author},{" "}
-          {comment.date}
+          --{comment.author}, {comment.date}
         </p>
       </div>
     );
@@ -141,7 +144,6 @@ const RenderComments = ({ comments, itemId }) => {
 };
 
 const Detail = (props) => {
-
   if (props.item != null) {
     return (
       <div className="container">

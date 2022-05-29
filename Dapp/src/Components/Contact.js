@@ -1,17 +1,17 @@
 import React from "react";
 
-const required = (val) => val && val.length
-const maxLength = (len) => (val) => !val || val.length <= len
-const minLength = (len) => (val) => val && val.length >= len
-const isNumber = (val) => !isNaN(Number(val))
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !val || val.length <= len;
+const minLength = (len) => (val) => val && val.length >= len;
+const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) =>
-  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val)
+  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 const Contact = (props) => {
   const handleSubmit = (values) => {
-    console.log('Current State is: ' + JSON.stringify(values))
-    alert('Current State is: ' + JSON.stringify(values))
-  }
+    console.log("Current State is: " + JSON.stringify(values));
+    alert("Current State is: " + JSON.stringify(values));
+  };
 
   return (
     <div className="container">
@@ -32,7 +32,7 @@ const Contact = (props) => {
             <br />
             <i className="fa fa-phone fa-lg"></i>: <br />
             <i className="fa fa-fax fa-lg"></i>: <br />
-            <i className="fa fa-envelope fa-lg"></i>:{' '}
+            <i className="fa fa-envelope fa-lg"></i>:{" "}
             <a href="message@organisation.com">message@organisation.com</a>
           </address>
         </div>
@@ -63,16 +63,14 @@ const Contact = (props) => {
           <h3>Send Us Your Feedback</h3>
         </div>
         <div className="col-12 col-md-9">
-          <form
-            model="feedback"
-            onSubmit={(values) => handleSubmit(values)}
-          >
+          <form model="feedback" onSubmit={(values) => handleSubmit(values)}>
             <div className="row form-group">
               <label htmlFor="firstname" md={2}>
                 First Name
               </label>
               <div className="col" md={10}>
-                <input type="text"
+                <input
+                  type="text"
                   model=".firstname"
                   id="firstname"
                   name="firstname"
@@ -91,7 +89,8 @@ const Contact = (props) => {
                 Last Name
               </label>
               <div className="col" md={10}>
-                <input type="text"
+                <input
+                  type="text"
                   model=".lastname"
                   id="lastname"
                   name="lastname"
@@ -110,7 +109,8 @@ const Contact = (props) => {
                 Contact Tel.
               </label>
               <div className="col" md={10}>
-                <input type="text"
+                <input
+                  type="text"
                   model=".telnum"
                   id="telnum"
                   name="telnum"
@@ -130,7 +130,8 @@ const Contact = (props) => {
                 Email
               </label>
               <div className="col" md={10}>
-                <input type="text"
+                <input
+                  type="text"
                   model=".email"
                   id="email"
                   name="email"
@@ -168,7 +169,7 @@ const Contact = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Contact;
